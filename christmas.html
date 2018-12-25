@@ -1,0 +1,78 @@
+<html>
+
+<style>
+    
+    html {
+        background-image: URL("https://previews.123rf.com/images/lilichka2014/lilichka20141712/lilichka2014171200236/91189111-christmas-background-with-snowflakes-white-snow-toys-lemon-candy-christmas-tree-branches-and-new-yea.jpg");
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+    }
+
+    iframe {padding:0; margin:0; border:0;}
+    #zunozap { bottom: 15; position: absolute; right: 30;text-align: center; background: rgba(244, 185, 66, 0.4); padding:10px; margin-right: 300px;}
+    a {color: black;}
+    a:visited {color: black;}
+    a:hover {color: #2e005b;}
+    
+    #zunozap img, #zunozap a {
+        display: inline-block;
+    }
+    
+    @media screen and (orientation:portrait) {
+        #zunozap {
+            display: none;
+        }
+    }
+    
+</style>
+
+    <div style="float:left">
+        <img src="https://openclipart.org/image/2400px/svg_to_png/188775/ChristmasTree.png" height="500px" width="450px">
+    </div>
+    <div>
+        <h1 style="font-size:4.5em;font-weight:bold;">Merry Christmas!</h1>
+        <h1 id="demo" style="font-size:3em;">Loading countdown</h1>
+        
+        <div id="zunozap">
+            <a href="http://zunozap.com/download"><img src="https://avatars1.githubusercontent.com/u/20327341" width="50px" height="50px">
+            <p><b>ZunoZap</b> - A new web browser. 70% more proformance than Chrome</p></a>
+        </div>
+        
+    </div>
+
+    <footer style="bottom:20; position: absolute;">&copy; Isaiah</footer>
+    
+    <script>
+        // Set the date we're counting down to
+        var year = new Date().getFullYear();
+        document.getElementById("demo").innerHTML = "Loading " + year + " countdown";
+        var countDownDate = new Date("Dec 25, " + year + " 00:00:01").getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+          // Get todays date and time
+          var now = new Date().getTime();
+            
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+            
+          // Time calculations for days, hours, minutes and seconds
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+          // Output the result in an element with id="demo"
+          document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+          + minutes + "m " + seconds + "s ";
+            
+          // If the count down is over, write some text 
+          if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("demo").innerHTML = "EXPIRED";
+          }
+        }, 1000);
+    </script>
+
+</html>
