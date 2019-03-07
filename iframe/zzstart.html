@@ -18,51 +18,156 @@
 
         iframe[name="speedyadsframe"] {
             position: fixed;
-            bottom: 0;
+            top: 10px;
             z-index: 5;
-            display:block;
+            display: block;
             margin: 0 auto;
         }
 
+        .bottom {
+            position: fixed;
+            bottom: 5px;
+            z-index: 5;
+            display: block;
+            margin: 0 auto;
+            margin-left: 10px;
+        }
+
+        .site { height: 90%; }
+
+        .border {
+            margin: 120px;
+            margin-top: 3px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            border: 4px solid blue;
+        }
+
+        .tabs button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 4.9px 20px;
+            transition: 0.3s;
+            border-right: 1px solid black;
+        }
+
+        .tabs button:hover { background-color: #ddd; }
+
+        .tabs button.active { background-color: #ccc; }
         iframe { display: block; }
+        small { font-size:9.5px;}
     </style>
 
     <script>
-        function f(name) {
-            window.document.domain = name;
-            window.parent.domain = name;
+        var tab = 1;
+
+        function zunozap(name) {
+    
+            var newUR = document.getElementById("txturlbar").value;
+
+            if (newUR.includes("zunozapcredits")) {
+                newUR = "http://files.zunozap.com/iframe/credits.html";
+            }
+
+            if (!newUR.includes("http"))
+                newUR = "http://" + newUR;
+
+            loadPage(newUR);
         }
-        f("google.com");
+
+        function loadPage(name) {
+            document.getElementById("pframe" + tab).innerHTML = 
+                "<iframe class='site' name='frame' id='i" + tab + "' is='x-frame-bypass' src='" + name + "' width='100%' height='100%'></iframe>";
+        }
+
+        function switchTab(ntab) {
+            document.getElementById("currentTab").innerHTML = ntab;
+            tab = ntab;
+
+            document.getElementById("pframe1").style.display = "none";
+            document.getElementById("pframe2").style.display = "none";
+            document.getElementById("pframe3").style.display = "none";
+            
+            document.getElementById("t1").style.background = "orange";
+            document.getElementById("t2").style.background = "orange";
+            document.getElementById("t3").style.background = "orange";
+
+            var con = document.getElementById("pframe" + ntab);
+            con.style.display = "block";
+            var btn = document.getElementById("t" + tab);
+            btn.style.background = "LIGHTGREEN";
+            if (con.innerHTML.includes("<br><br><br><p>Error loading page</p>"))
+                loadPage("http://n-e-d.github.io/");
+        }
+
+        function updateTitles() {
+            var btn = document.getElementById("t" + tab);
+            var title = document.getElementById("i" + tab).contentDocument.title;
+            if (title.length > 1)
+                btn.innerHTML = title;
+            else
+                btn.innerHTML = "Loading...";
+        }
+        setInterval(updateTitles, 1000);
     </script>
 
-    <p style="text-align:center">
-
-    <script type="text/javascript">
+    <p class="zzz" style="text-align:center">
+        <script type="text/javascript">
         sa_client = "a859de98a47a2fd0091878cd36b45c4f";
-        sa_code = "9c299107cb18fcd0b416a106144dc416";
+        sa_code = "f43178b443cf7783d41557c32d661e7d";
         sa_protocol = ("https:"==document.location.protocol)?"https":"http";
         sa_pline = "0";
-        sa_maxads = "2";
-        sa_bgcolor = "ffffff";
-        sa_bordercolor = "bdd631";
-        sa_superbordercolor = "bdd631";
-        sa_linkcolor = "001eb5";
-        sa_desccolor = "000000";
-        sa_urlcolor = "788300";
+        sa_maxads = "4";
+        sa_bgcolor = "000000";
+        sa_bordercolor = "ff6323";
+        sa_superbordercolor = "ff6323";
+        sa_linkcolor = "ffe14a";
+        sa_desccolor = "ffffff";
+        sa_urlcolor = "ffe14a";
         sa_b = "0";
-        sa_format = "banner_468x60";
-        sa_width = "468";
-        sa_height = "60";
+        sa_format = "column_120x600";
+        sa_width = "115";
+        sa_height = "600";
         sa_location = "0";
         sa_radius = "0";
         sa_borderwidth = "1";
         sa_font = "0";
-        document.write(unescape("%3cscript type='text/javascript' src='"+sa_protocol+"://sa.entireweb.com/sense2.js'%3e%3c/script%3e"));
-    </script>
+        document.write(unescape("%3cscript type='text/javascript' src='"+sa_protocol+"://sa.entireweb.com/sense2.js'%3e%3c/script%3e") + 
+        "<p class='bottom' style='font-size:10px;'>I don't like ads either;<br>But they pay the bills</p>");
+        </script>
     </p>
+
+    <div id="currentTab" style="display:none">0</div>
 
     <script src="https://unpkg.com/@ungap/custom-elements-builtin"></script>
     <script src="x-frame-bypass.js" type="module"></script>
-    <iframe is="x-frame-bypass" src="http://google.com" width="100%" height="100%"></iframe>
+    <div class="border">
+        <div class="zzimg" style="background-color:blue;padding:0;margin:0;color:white;display:inline-block;width:100%;padding-bottom:3px;padding-left:5px;">
+            <b>ZunoZap: IFrame Edition</b> <small>Version 1.0<small>
+
+            <button style="float:right;" onclick="zunozap();">GO</button>
+            <input id="txturlbar" type="text" style="width:400px;float:right;" />
+        </div>
+        <div id="tabs" class="tabs" style="width:100%; background: orange;">
+            <button id="t1" onclick="switchTab('1')">Tab 1</button>
+            <button id="t2" onclick="switchTab('2')">Tab 2</button>
+            <button id="t3" onclick="switchTab('3')">Tab 3</button>
+        </div>
+
+        <div id="pframe1" style="background-color:orange;">
+            <iframe class='site' name="frame" id="i1" is="x-frame-bypass" src="http://google.com" width="100%" height="100%"></iframe>
+        </div>
+
+        <div id="pframe2" style="display:none; background-color:orange;">
+            <br><br><br><p>Error loading page</p>
+        </div>
+        
+        <div id="pframe3" style="display:none; background-color:orange;">
+            <br><br><br><p>Error loading page</p>
+        </div>
+    </div>
 
 </html>
